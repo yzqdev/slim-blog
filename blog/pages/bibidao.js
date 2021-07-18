@@ -14,17 +14,17 @@ import  servicePath  from '../config/apiUrl'
 const Bibidao = (data) =>{
 
   const [mylist, setList ] = useState(data.list)
- 
+
 
  useEffect(()=>{
- 
+
  })
 
   return (
     <>
       <Head>
         <title>大胖逼逼叨</title>
-        <link rel="icon" href="../static/favicon.ico" mce_href="../static/favicon.ico" type="image/x-icon" / >
+        <link rel="icon" href="../public/favicon.ico" type="image/x-icon" />
       </Head>
       <Header />
       <Row className="comm-main" type="flex" justify="center">
@@ -46,13 +46,13 @@ const Bibidao = (data) =>{
                         sm: 4,
                         md: 4,
                         lg:4,
-                       
+
                     }}
                     renderItem={item => (
                         <List.Item>
-                            <Card  
-                              hoverable 
-                              bordered={true}  
+                            <Card
+                              hoverable
+                              bordered={true}
                             >
                               <div className="item-div">
                                   <a href={item.url} target="_blank" className="img-wrapper">
@@ -61,11 +61,11 @@ const Bibidao = (data) =>{
                               </div>
                               <div className="bbd-title">
                                 <a href={item.url} target="_blank">
-                                  <span className="bbd-zi">{item.title} </span> 
+                                  <span className="bbd-zi">{item.title} </span>
                                 </a>
                               </div>
-                           
-                             
+
+
                             </Card>
                         </List.Item>
                     )}
@@ -73,38 +73,38 @@ const Bibidao = (data) =>{
 
               </div>
 
-                
+
             </div>
         </Col>
-  
+
         <Col className="comm-right" xs={0} sm={0} md={6} >
           <Author />
-         
+
         </Col>
       </Row>
       <Footer/>
-  
+
    </>
   )
 
-} 
+}
 
 Bibidao.getInitialProps = async (context)=>{
 
 
   const promise = new Promise((resolve)=>{
-   
+
       axios(servicePath.getListBBD).then(
-        
+
           (res)=>{
-            
+
             return resolve(res.data)
           }
         )
-      
+
     })
 
-  
+
   return await promise
 }
 

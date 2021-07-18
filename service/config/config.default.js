@@ -32,9 +32,9 @@ module.exports = appInfo => {
       // username
       user: 'root',
       // password
-      password: '12345678',
+      password: '123456',
       // database
-      database: 'react_blog',    
+      database: 'react_blog',
     },
     // load into app, default is open
     app: true,
@@ -43,16 +43,23 @@ module.exports = appInfo => {
   };
 
   config.security = {
-　　　　csrf: {enable: false},
+　　　　csrf: {enable: false },
 　　　　domainWhiteList: [ '*' ]
 　　};
- 
+
   config.cors = {
-    origin: 'http://127.0.0.1:3000',
+    origin:  function(ctx) { //设置允许来自指定域名请求
+      const whiteList = ['http://localhost:7800','http://localhost:4000']; //可跨域白名单
+      let url = ctx.header.referer.substr(0,ctx.header.referer.length - 1);
+      if(whiteList.includes(url)){
+        return url //注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
+      }
+      return 'http://localhost::3000' //默认允许本地请求3000端口可跨域
+    },
     credentials: true,  //允许Cook可以跨域
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
     };
-  
+
     //长文本设置
     config.bodyParser = {
       enable: true,
@@ -66,7 +73,7 @@ module.exports = appInfo => {
         depth: 5,
         parameterLimit: 1000,
       },
-  
+
     }
 
   return {

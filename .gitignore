@@ -10,3 +10,4 @@
 /blog/yarn.lock
 /admin_app/node_modules
 /admin_app/yarn.lock
+.idea

@@ -1,9 +1,10 @@
 import React,{useState ,useEffect} from 'react'
 import {Avatar,Divider,Tooltip ,Tag} from 'antd'
-import '../static/style/components/author.css'
+
 import  servicePath  from '../config/apiUrl'
 import axios from 'axios'
 import CountUp from 'react-countup'
+import {CalendarOutlined, GithubOutlined, QqOutlined, WechatOutlined} from "@ant-design/icons";
 
 const Author =()=>{
 
@@ -13,9 +14,9 @@ const Author =()=>{
     const [ all_view_count , setAll_view_count ] = useState( 0);
 
     useEffect(()=>{
-        
+
         fetchData()
-        
+
     },[])
 
 
@@ -49,14 +50,14 @@ const Author =()=>{
                 </Tooltip>
                 <Tooltip title="https://github.com/shenghy">
                     <a href="https://github.com/shenghy" target="_blank">
-                    <Avatar size={28} icon="github" className="account"  />
+                    <Avatar size={28} icon={<GithubOutlined />} className="account"  />
                     </a>
                 </Tooltip>
                 <Tooltip title="QQ:8745662">
-                    <Avatar size={28} icon="qq"  className="account" />
+                    <Avatar size={28} icon={<QqOutlined />}  className="account" />
                 </Tooltip>
                 <Tooltip title="wechat:php100">
-                <Avatar size={28} icon="wechat"  className="account"  />
+                <Avatar size={28} icon={<WechatOutlined />}  className="account"  />
                 </Tooltip>
 
             </div>

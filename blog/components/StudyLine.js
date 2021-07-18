@@ -1,4 +1,4 @@
-import '../static/style/components/studyLine.css'
+
 import {Row,Col,Icon} from 'antd'
 
  const StudyLine = ()=>{
@@ -28,7 +28,7 @@ import {Row,Col,Icon} from 'antd'
                 <Col span={2}  className="sl-icon"><Icon type="right" /></Col>
             </Row>
           </a>
-        
+
         </div>
     )
  }

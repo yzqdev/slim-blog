@@ -6,7 +6,7 @@ class HomeController extends Controller{
 
     async index(){
         //首页的文章列表数据
-        
+
         this.ctx.body='hi api'
     }
 
@@ -58,8 +58,8 @@ class HomeController extends Controller{
         let id = this.ctx.params.id
 
         if(id){
-            let sql1 = "UPDATE article SET view_count = (view_Count+1) WHERE id ="+id 
-       
+            let sql1 = "UPDATE article SET view_count = (view_Count+1) WHERE id ="+id
+
             let updateResult=await this.app.mysql.query(sql1)
             const updateSuccess = updateResult.affectedRows === 1
             if(updateSuccess){
@@ -67,38 +67,38 @@ class HomeController extends Controller{
                 'introduce,view_count,part_count,article_content_html ,introduce_html,'+
                 "FROM_UNIXTIME(addTime,'%Y-%m-%d' ) as addTime"+
                 ' FROM article WHERE id='+id
-        
+
                 let  result2 = await this.app.mysql.query(sql2)
                 result2=JSON.stringify(result2)
                 result2=JSON.parse(result2)
-                
+
                 let typeid = result2[0].type_id
-        
-        
+
+
                 let sql3 = 'SELECT typeName FROM type WHERE id='+typeid
                 let result3 = await this.app.mysql.query(sql3)
-        
+
                 //console.log(result3)
                 result3=JSON.stringify(result3)
                 result3=JSON.parse(result3)
-              
+
                 result2[0].typeName=result3[0].typeName
-        
-               
+
+
                 this.ctx.body={data:result2}
-      
+
             }else{
                 console.log('id错误1')
-                this.ctx.body={data:'id错误'} 
+                this.ctx.body={data:'id错误'}
             }
-  
-         
+
+
         }else{
             console.log('id错误2')
             this.ctx.body={data:'id错误'}
         }
 
-       
+
 
     }
 
@@ -106,6 +106,8 @@ class HomeController extends Controller{
     async getTypeInfo(){
 
         const result = await this.app.mysql.select('type')
+        console.log(result)
+        console.log('卧槽,咋没有东西')
         this.ctx.body = {data:result}
 
     }
@@ -127,7 +129,7 @@ class HomeController extends Controller{
         }else{
             this.ctx.body={data:'错误的Id'}
         }
-        
+
 
     }
 
@@ -137,7 +139,7 @@ class HomeController extends Controller{
         let sql = 'SELECT SUM(part_count) as all_part_count ,'+
         'SUM(view_count) as all_view_count '+
         'FROM article'
-        
+
         const result = await this.app.mysql.query(sql)
         this.ctx.body={data:result}
     }
@@ -146,14 +148,14 @@ class HomeController extends Controller{
         const resList = await this.app.mysql.select('bibidao',{
             orders:[['id','desc']]
         })
-        
+
         this.ctx.body={list:resList}
      }
 
-    
 
 
-   
+
+
 }
 
 module.exports = HomeController

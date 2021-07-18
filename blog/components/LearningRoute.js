@@ -1,6 +1,6 @@
 import React,{useState ,useEffect} from 'react'
 import {Avatar,Divider,Tooltip ,Tag} from 'antd'
-import '../static/style/components/author.css'
+import '../public/style/components/author.css'
 import  servicePath  from '../config/apiUrl'
 import axios from 'axios'
 import CountUp from 'react-countup'

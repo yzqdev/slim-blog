@@ -15,28 +15,28 @@ class MainController extends Controller{
         let password = this.ctx.request.body.password
         const sql = " SELECT userName FROM admin_user WHERE userName = '"+userName +
                     "' AND password = '"+password+"'"
-        
+
         const res = await this.app.mysql.query(sql)
         if(res.length>0){
             //登录成功,进行session缓存
             let openId=new Date().getTime()
             this.ctx.session.openId={ 'openId':openId }
             this.ctx.body={'data':'登录成功','openId':openId}
-            
+
         }else{
             this.ctx.body={data:'登录失败'}
-        } 
+        }
     }
     //退出登录
     async outLogin(){
-        this.ctx.session.openId=null 
+        this.ctx.session.openId=null
         this.ctx.body={'data':'退出成功'}
 
     }
 
     async checkOpenId(){
         let cOpenId = this.ctx.request.body.openId
-        let sOpenId = this.ctx.session.openId.openId
+        let sOpenId = this.ctx.session.openId
         if(sOpenId & cOpenId==sOpenId){
             this.ctx.body={data:'已经登录'}
         }else{
@@ -47,7 +47,10 @@ class MainController extends Controller{
 
     //后台文章分类信息
     async getTypeInfo(){
+        console.log("woc怎么进不来")
         const resType = await this.app.mysql.select('type')
+        console.log(resType)
+        console.log(`%c这是resttype`,`color:red;font-size:16px;background:transparent`)
         this.ctx.body={data:resType}
     }
     //添加文章
@@ -58,7 +61,7 @@ class MainController extends Controller{
         const result = await this.app.mysql.insert('article',tmpArticle)
         const insertSuccess = result.affectedRows === 1
         const insertId = result.insertId
-        
+
         this.ctx.body={
             isScuccess:insertSuccess,
             insertId:insertId
@@ -74,12 +77,12 @@ class MainController extends Controller{
         this.ctx.body={
             isScuccess:updateSuccess
         }
-    }  
-    
+    }
+
     //修改文章置顶信息
     async updateIsTop(){
         let tmpArticle= this.ctx.request.body
-       
+
 
         let sql = 'update  article set isTop = '+tmpArticle.isTop+' where id = '+tmpArticle.id
         let updateResult=await this.app.mysql.query(sql)
@@ -90,8 +93,8 @@ class MainController extends Controller{
             this.ctx.body={data:'error'}
         }
     }
-    
-    
+
+
     //获得文章列表
     async getArticleList(){
 
@@ -105,23 +108,23 @@ class MainController extends Controller{
                   'type.typeName as typeName '+
                   'FROM article LEFT JOIN type ON article.type_id = type.Id '+
                   'ORDER BY article.id DESC '
-                  
+
          const resList = await this.app.mysql.query(sql)
          this.ctx.body={list:resList}
- 
+
      }
-     
+
      //删除文章
      async delArticle(){
          let id = this.ctx.params.id
          const res = await this.app.mysql.delete('article',{'id':id})
          this.ctx.body={data:res}
      }
-     
+
      //根据文章ID得到文章详情，用于修改文章
      async getArticleById(){
          let id = this.ctx.params.id
-         
+
          let sql = 'SELECT article.id as id,'+
          'article.title as title,'+
          'article.introduce as introduce,'+
@@ -159,11 +162,11 @@ class MainController extends Controller{
         let id = this.ctx.params.id
         const res = await this.app.mysql.delete('bibidao',{'id':id})
         this.ctx.body={data:res}
-     } 
+     }
 
 
 
-   
+
 }
 
 module.exports = MainController
