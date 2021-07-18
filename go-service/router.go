@@ -1,8 +1,9 @@
-package router
+package main
 
 import (
 	"github.com/gin-gonic/gin"
 	"react-blog/controller"
+	"react-blog/middleware"
 )
 
 func InitRouter(e *gin.Engine) {
@@ -12,7 +13,7 @@ func InitRouter(e *gin.Engine) {
 		baseRouter.POST("/reg", controller.Register)
 		baseRouter.POST("/outLogin")
 	}
-	adminRouter := e.Group("/admin")
+	adminRouter := e.Group("/admin", middleware.JwtHandler())
 	{
 
 		adminRouter.GET("/index", controller.Index)

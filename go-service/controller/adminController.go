@@ -134,6 +134,16 @@ func Register(c *gin.Context) {
 }
 
 func Index(c *gin.Context) {
+	userContext, exist := c.Get("user")
+	if !exist {
+		color.Danger.Println("失败了")
+	}
+	//查询用户组及该组的功能权限
+	user, ok := userContext.(model.AdminUser) //这个是类型推断,判断接口是什么类型
+	if !ok {
 
-	utils.JSON(c, 200, "hhh", "aaa")
+		color.Danger.Println("断言失败")
+	}
+	color.Red.Println(c.Request.Host)
+	utils.JSON(c, 200, "hhh", user)
 }
