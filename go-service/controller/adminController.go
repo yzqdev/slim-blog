@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"react-blog/model"
 	"react-blog/utils"
+	"strconv"
 	"time"
 )
 
@@ -172,4 +173,26 @@ func AddArticle(c *gin.Context) {
 		flag := model.QueryAddArticle(*article)
 		utils.JSON(c, 200, "success", flag)
 	}
+}
+func UpdateArticle(c *gin.Context) {
+	article := &model.Article{}
+	if err := c.ShouldBindJSON(article); err != nil {
+		color.Cyan.Println(err)
+		utils.JSON(c, 500, "success", "失败了")
+	} else {
+		flag := model.QueryUpdateArticle(*article)
+		utils.JSON(c, 200, "success", flag)
+	}
+}
+func DelArticle(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	model.DeleteArticle(id)
+	utils.JSON(c, 200, "success", true)
+}
+func GetArticleById(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var article model.Article
+	article = model.QueryGetArticleById(id)
+	color.Yellowln(article)
+	utils.JSON(c, 200, "success", article)
 }

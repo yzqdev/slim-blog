@@ -12,6 +12,15 @@ export const getTypeInfoApi=(  ) => {
 export const addArticleApi=( data ) => {
   return axios.post("/admin/addArticle",data )
 }
+export const updateArticleApi=( data ) => {
+  return axios.put("/admin/updateArticle",data )
+}
+export const getArticleByIdApi=( data ) => {
+  return axios.get("/admin/getArticleById/"+data )
+}
+export const delArticleApi=( data ) => {
+  return axios.delete("/admin/delArticle/"+data )
+}
 export const getArticleListApi=(  ) => {
   return axios.get("/default/getArticleList"  )
 }

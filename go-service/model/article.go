@@ -1,6 +1,8 @@
 package model
 
-import "github.com/gookit/color"
+import (
+	"github.com/gookit/color"
+)
 
 type Article struct {
 	Id                 int    `json:"id"`
@@ -39,4 +41,25 @@ func QueryAddArticle(article Article) (flag bool) {
 	db.Table("article").Create(&article)
 
 	return true
+}
+func QueryUpdateArticle(article Article) (flag bool) {
+	db := GetDb()
+
+	color.Red.Println(article)
+	db.Table("article").Save(&article)
+
+	return true
+}
+func DeleteArticle(id int) (flag bool) {
+	db := GetDb()
+	var article Article
+	db.Table("article").Where("id= ?", id).Delete(&article)
+	return true
+}
+func QueryGetArticleById(id int) (result Article) {
+	db := GetDb()
+
+	db.Table("article").Where("id=?", id).First(&result)
+	color.Blueln(result)
+	return
 }
