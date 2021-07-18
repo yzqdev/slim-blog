@@ -35,7 +35,7 @@ function AdminIndex(props){
   // 退出登录的方法
   const handleExit= e=>{
 
-    localStorage.removeItem('openId')
+    localStorage.removeItem('token')
     axios({
       method:'get',
       url:servicePath.outLogin,

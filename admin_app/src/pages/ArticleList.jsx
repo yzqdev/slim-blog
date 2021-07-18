@@ -4,6 +4,7 @@ import {List, Row, Col, Modal, message, Button, Switch} from 'antd';
 import axios from 'axios'
 import servicePath from '../config/apiUrl'
 import {delArticleApi, getArticleListApi} from "@/utils/admin";
+import dayjs from "dayjs";
 
 const {confirm} = Modal;
 
@@ -119,7 +120,7 @@ function ArticleList(props) {
                                 {item.type_id}
                             </Col>
                             <Col span={3}>
-                                {item.add_time}
+                                {dayjs(item.add_time).format("YYYY-MM-DD HH:mm:ss")}
                             </Col>
                             <Col span={2}>
                                 共<span>{item.part_count}</span>集
@@ -128,7 +129,7 @@ function ArticleList(props) {
                                 {item.view_count}
                             </Col>
                             <Col span={3}>
-                                <Switch checked={item.isTop ? true : false} onChange={(checked) => {
+                                <Switch checked={!!item.isTop} onChange={(checked) => {
                                     setTop(item.id, checked)
                                 }}/>
                             </Col>

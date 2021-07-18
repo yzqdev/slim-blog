@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import marked from 'marked'
 import '../static/css/AddArticle.css'
-import {Row, Col, Input, Select, Button, DatePicker, message, Spin} from 'antd'
-import axios from 'axios'
-import servicePath from '../config/apiUrl'
+import {Row, Col, Input, Select, Button, DatePicker,  message, Spin} from 'antd'
+
 import Tocify from '../components/tocify.tsx'
 import hljs from "highlight.js";
 import 'highlight.js/styles/monokai-sublime.css';
@@ -168,8 +167,8 @@ function AddArticle(props) {
         dataProps.title = articleTitle
         dataProps.article_content = articleContent
         dataProps.introduce = introducemd
-        let datetext = showDate.replace('-', '/') //把字符串转换成时间戳
-        dataProps.add_time = (new Date(datetext).getTime()) / 1000
+        //把字符串转换成时间戳
+        dataProps.add_time =parseInt(showDate)
         dataProps.part_count = partCount
         dataProps.article_content_html = markdownContent
         dataProps.introduce_html = introducehtml
@@ -192,7 +191,7 @@ function AddArticle(props) {
         } else {
             console.log('articleId:' + articleId)
             setIsLoadding(false)
-            dataProps.id = articleId
+            dataProps.id = +articleId
             updateArticleApi(dataProps).then(
                 res => {
 
@@ -234,7 +233,7 @@ function AddArticle(props) {
                                     <Select defaultValue={selectedType} size="large" onChange={selectTypeHandler}>
                                         {
                                             typeInfo.map((item, index) => {
-                                                return (<Option key={index} value={item.Id}>{item.typeName}</Option>)
+                                                return (<Option key={index} value={item.id}>{item.type_name}</Option>)
                                             })
                                         }
 
@@ -303,7 +302,10 @@ function AddArticle(props) {
                                 <Col span={12}>
                                     <div className="date-select">
                                         <DatePicker
-                                            onChange={(date, dateString) => setShowDate(dateString)}
+                                            onChange={(date, dateString) => {
+                                                setShowDate(date.format("x"));
+
+                                            }}
                                             placeholder="发布日期"
                                             size="large"
 
