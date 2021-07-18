@@ -6,6 +6,12 @@ import (
 )
 
 func InitRouter(e *gin.Engine) {
+	baseRouter := e.Group("/base")
+	{
+		baseRouter.POST("/login", controller.Login)
+		baseRouter.POST("/reg", controller.Register)
+		baseRouter.POST("/outLogin")
+	}
 	adminRouter := e.Group("/admin")
 	{
 
@@ -16,9 +22,7 @@ func InitRouter(e *gin.Engine) {
 		adminRouter.GET("/getArticleList")
 		adminRouter.GET("/delArticle/:id")
 		adminRouter.GET("/getArticleById/:id")
-		adminRouter.GET("/checkLogin")
 		adminRouter.GET("/checkOpenId")
-		adminRouter.GET("/outLogin", controller.Login)
 		adminRouter.GET("/addBBD")
 		adminRouter.GET("/getListBBD")
 		adminRouter.GET("/deBBDbyId/:id")

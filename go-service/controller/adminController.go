@@ -1,13 +1,136 @@
 package controller
 
 import (
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/gookit/color"
+	"net/http"
+	"react-blog/model"
 	"react-blog/utils"
+	"time"
 )
 
-func Login(c *gin.Context) {
+var SecretKey = []byte("9hUxqaGelNnCZaCW")
 
-	utils.JSON(c, 200, "hhh", "aaa")
+type ReqLogin struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+type ReqReg struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+type NewJwtClaims struct {
+	*model.AdminUser
+	jwt.StandardClaims
+}
+
+func Login(c *gin.Context) {
+	user := &ReqLogin{}
+	result := &model.Result{
+		Code:    200,
+		Message: "登录成功n",
+		Data:    nil,
+	}
+	color.Cyan.Println("hhh")
+	if err := c.ShouldBindJSON(user); err != nil {
+
+		result.Message = "数据绑定失败"
+		result.Code = http.StatusUnauthorized
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"result": result,
+		})
+	}
+	sqlU := model.QueryByUsername(user.Username)
+	salt := sqlU.Salt
+	color.Red.Println(user.Username)
+	color.Red.Println(user.Password)
+	color.Red.Println("登陆接口进入")
+	color.Cyan.Println(sqlU.Password)
+	if sqlU.Password == utils.MD5(user.Password+salt) {
+		expiresTime := time.Now().Unix() + int64(60*60*24)
+		//claims := jwt.StandardClaims{
+		//	Audience:  user.Username,          // 受众
+		//	ExpiresAt: expiresTime,            // 失效时间
+		//	Id:        string(rune(user.Uid)), // 编号
+		//	IssuedAt:  time.Now().Unix(),      // 签发时间
+		//	Issuer:    sqlU.Username,            // 签发人
+		//	NotBefore: time.Now().Unix(),      // 生效时间
+		//	Subject:   "login",                // 主题
+		//}
+		stdClaims := jwt.StandardClaims{
+
+			Audience:  "啊啊啊",             // 受众
+			ExpiresAt: expiresTime,       // 失效时间
+			Id:        "id",              // 编号
+			IssuedAt:  time.Now().Unix(), // 签发时间
+			Issuer:    "sqlU.Username",   // 签发人
+			NotBefore: time.Now().Unix(), // 生效时间
+			Subject:   "login",           // 主题
+		}
+		newClaims := NewJwtClaims{
+			AdminUser:      &sqlU,
+			StandardClaims: stdClaims,
+		}
+		tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, newClaims)
+		if token, err := tokenClaims.SignedString(SecretKey); err == nil {
+			result.Message = "登录成功"
+			result.Data = token
+			result.Code = http.StatusOK
+			c.JSON(result.Code, result)
+		} else {
+			result.Message = "登录失败，请重新登陆"
+			result.Code = http.StatusOK
+			c.JSON(result.Code, gin.H{
+				"result": result,
+			})
+		}
+	} else {
+		result.Message = "密码不一样"
+		result.Code = http.StatusOK
+		c.JSON(result.Code, gin.H{
+			"result": result,
+		})
+	}
+}
+
+// @Summary 注册api
+// @Description 描述信息
+// @Tags accounts
+// @Accept  json
+// @Produce  json
+// @Router /register [post]
+func Register(c *gin.Context) {
+
+	u := &ReqReg{}
+	if err := c.ShouldBindJSON(u); err != nil {
+		color.Danger.Println("json解析失败")
+	}
+	username := u.Username
+	password := u.Password
+
+	have := model.GetUserCheck(username)
+	if !have {
+		salt := utils.GetRandomString(4)
+		data := map[string]interface{}{
+			"username": username,
+			"password": utils.MD5(password + salt),
+
+			"salt": salt,
+		}
+		model.SaveUser(data)
+
+		c.JSON(http.StatusOK, gin.H{
+			"status":  200,
+			"message": "注册成功",
+		})
+
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"status":  2010,
+			"message": "用户信息已存在，请确认后输入！",
+		})
+	}
 }
 
 func Index(c *gin.Context) {
