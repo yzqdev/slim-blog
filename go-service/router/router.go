@@ -5,10 +5,10 @@ import (
 	"react-blog/controller"
 )
 
-func Router(e *gin.Engine) {
+func InitRouter(e *gin.Engine) {
 	adminRouter := e.Group("/admin")
 	{
-		adminRouter.POST("/login", controller.Login)
+
 		adminRouter.GET("/index", controller.Index)
 		adminRouter.GET("/getTypeInfo")
 		adminRouter.GET("/addArticle")
@@ -18,11 +18,21 @@ func Router(e *gin.Engine) {
 		adminRouter.GET("/getArticleById/:id")
 		adminRouter.GET("/checkLogin")
 		adminRouter.GET("/checkOpenId")
-		adminRouter.GET("/outLogin")
+		adminRouter.GET("/outLogin", controller.Login)
 		adminRouter.GET("/addBBD")
 		adminRouter.GET("/getListBBD")
 		adminRouter.GET("/deBBDbyId/:id")
 		adminRouter.GET("updateIsTop")
+	}
+	homeRouter := e.Group("/default")
+	{
+		homeRouter.GET("/index")
+		homeRouter.GET("/getArticleList")
+		homeRouter.GET("/getArticleById/:id")
+		homeRouter.GET("/getTypeInfo")
+		homeRouter.GET("/getAllPartCount")
+		homeRouter.GET("/getListBBD")
+
 	}
 
 }

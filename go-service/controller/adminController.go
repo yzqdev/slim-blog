@@ -1,21 +1,16 @@
 package controller
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"react-blog/utils"
+)
 
 func Login(c *gin.Context) {
 
-	c.JSON(200, gin.H{
-		"status":  "posted",
-		"message": "message",
-		"nick":    "nick",
-	})
+	utils.JSON(c, 200, "hhh", "aaa")
 }
 
 func Index(c *gin.Context) {
 
-	c.JSON(200, gin.H{
-		"status":  "posted",
-		"message": "message",
-		"nick":    "nick",
-	})
+	utils.JSON(c, 200, "hhh", "aaa")
 }
