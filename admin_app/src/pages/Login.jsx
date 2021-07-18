@@ -5,6 +5,7 @@ import { Card, Input,  Button ,Spin,message } from 'antd';
 import axios from 'axios'
 import  servicePath  from '../config/apiUrl'
 import {KeyOutlined, UserOutlined} from "@ant-design/icons";
+import {adminLogin, checkToken} from "@/utils/admin";
 
 const openIdContext = createContext()
 
@@ -16,26 +17,21 @@ function Login(props){
 
     useEffect(()=>{
         //检查是否已经登录
-        let openId = localStorage.getItem('openId')
-        let dataProps = {'openId':openId}
-        console.log(openId)
-        if(openId){
-            axios({
-                method:'post',
-                url:servicePath.checkOpenId,
-                data:dataProps,
-                withCredentials: true,
-            }).then(
+        let token = localStorage.getItem('token')
+        let dataProps = {'token':token}
+        console.log(token)
+
+         checkToken().then(
                 res=>{
                     console.log(res)
-                   if(res.data.data){
+                   if(res.data){
                      message.success('已经登录')
                      props.history.push('/index')
                    }
                 }
             )
 
-        }
+
     },[])
 
     const checkLogin = ()=>{
@@ -52,18 +48,12 @@ function Login(props){
             'userName':userName,
             'password':password
         }
-        axios({
-            method:'post',
-            url:servicePath.checkLogin,
-            data:dataProps,
-            header:{ 'Access-Control-Allow-Origin':'http://localhost:7800/' },
-            withCredentials: true
-        }).then(
+      adminLogin(dataProps).then(
            res=>{
-                console.log(res.data)
+                console.log(res)
                 setIsLoading(false)
-                if(res.data.data=='登录成功'){
-                    localStorage.setItem('openId',res.data.openId)
+                if(res.data ){
+                    localStorage.setItem('token',res.data )
                     props.history.push('/index')
                 }else{
                     message.error('用户名密码错误')

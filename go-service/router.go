@@ -18,12 +18,12 @@ func InitRouter(e *gin.Engine) {
 
 		adminRouter.GET("/index", controller.Index)
 		adminRouter.GET("/getTypeInfo")
-		adminRouter.GET("/addArticle")
+		adminRouter.POST("/addArticle", controller.AddArticle)
 		adminRouter.GET("/updateArticle")
 		adminRouter.GET("/getArticleList")
 		adminRouter.GET("/delArticle/:id")
 		adminRouter.GET("/getArticleById/:id")
-		adminRouter.GET("/checkOpenId")
+		adminRouter.GET("/checkToken", controller.CheckToken)
 		adminRouter.GET("/addBBD")
 		adminRouter.GET("/getListBBD")
 		adminRouter.GET("/deBBDbyId/:id")
@@ -32,9 +32,9 @@ func InitRouter(e *gin.Engine) {
 	homeRouter := e.Group("/default")
 	{
 		homeRouter.GET("/index")
-		homeRouter.GET("/getArticleList")
+		homeRouter.GET("/getArticleList", controller.GetArticleList)
 		homeRouter.GET("/getArticleById/:id")
-		homeRouter.GET("/getTypeInfo")
+		homeRouter.GET("/getTypeInfo", controller.GetTypeInfo)
 		homeRouter.GET("/getAllPartCount")
 		homeRouter.GET("/getListBBD")
 

@@ -1,4 +1,4 @@
-let ipUrl = 'http://127.0.0.1:7001/admin/' 
+let ipUrl = 'http://localhost:1500/admin/'
 
 let servicePath = {
     getTypeInfo:ipUrl + 'getTypeInfo' ,  //  获得文章类别信息
@@ -7,7 +7,7 @@ let servicePath = {
     getArticleList:ipUrl + 'getArticleList' ,  //  文章列表
     delArticle:ipUrl + 'delArticle/' ,  //  删除文章
     getArticleById:ipUrl + 'getArticleById/' ,  //  根据ID获得文章详情
-    checkLogin:ipUrl + 'checkLogin' ,  //  检查用户名密码是否正确
+    checkLogin:ipUrl + 'login' ,  //  检查用户名密码是否正确
     checkOpenId:ipUrl + 'checkOpenId' ,  //  检查OPendId是否和服务器一样
     outLogin:ipUrl + 'outLogin' ,  //  退出登录
     addBBD:ipUrl + 'addBBD' ,  //  增加大胖逼逼叨视频

@@ -37,3 +37,6 @@ func GetUserCheck(username string) bool {
 		return false
 	}
 }
+func QueryCheckToken() {
+
+}
