@@ -127,9 +127,7 @@ class HomeController extends Controller {
     //获取总集数和总浏览数
     async getAllPartCount() {
 
-        let sql = 'SELECT SUM(part_count) as all_part_count ,' +
-            'SUM(view_count) as all_view_count ' +
-            'FROM article'
+        let sql = `SELECT SUM(part_count) as all_part_count ,SUM(view_count) as all_view_count FROM article`
 
         const result = await this.app.mysql.query(sql)
         this.ctx.body = {data: result}

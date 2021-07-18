@@ -5,6 +5,7 @@ import  servicePath  from '../config/apiUrl'
 import axios from 'axios'
 import CountUp from 'react-countup'
 import {CalendarOutlined, GithubOutlined, QqOutlined, WechatOutlined} from "@ant-design/icons";
+import {getAllPartCountApi} from "../config/admin";
 
 const Author =()=>{
 
@@ -21,11 +22,9 @@ const Author =()=>{
 
 
     const fetchData = async ()=>{
-        const result = await axios(servicePath.getAllPartCount).then(
-            (res)=>{  return res.data.data  }
-          )
-          setAll_part_count(result[0].all_part_count)
-          setAll_view_count(result[0].all_view_count)
+        const result = await getAllPartCountApi()
+          setAll_part_count(result.all_part_count)
+          setAll_view_count(result.all_view_count)
     }
 
     return (

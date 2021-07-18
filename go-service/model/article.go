@@ -63,3 +63,12 @@ func QueryGetArticleById(id int) (result Article) {
 	color.Blueln(result)
 	return
 }
+func GetAllPartCount() (flag map[string]interface{}) {
+	sql := "SELECT SUM(part_count) as all_part_count ,SUM(view_count) as all_view_count FROM article"
+	db := GetDb()
+	data := map[string]interface{}{
+		"all_part_count": "", "all_view_count": "",
+	}
+	db.Exec(sql).Scan(&data)
+	return data
+}

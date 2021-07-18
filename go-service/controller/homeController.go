@@ -17,3 +17,7 @@ func GetTypeInfo(c *gin.Context) {
 
 	utils.JSON(c, 200, "success", typeInfos)
 }
+func PartCount(c *gin.Context) {
+	count := model.GetAllPartCount()
+	utils.JSON(c, 200, "success", count)
+}
