@@ -33,7 +33,7 @@ func InitRouter(e *gin.Engine) {
 	{
 		homeRouter.GET("/index")
 		homeRouter.GET("/getArticleList", controller.GetArticleList)
-		homeRouter.GET("/getArticleById/:id")
+		homeRouter.GET("/getArticleById/:id",controller.GetArticleById)
 		homeRouter.GET("/getTypeInfo", controller.GetTypeInfo)
 		homeRouter.GET("/getAllPartCount", controller.PartCount)
 		homeRouter.GET("/getListBBD")

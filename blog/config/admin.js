@@ -11,7 +11,7 @@ export const  getAllPartCountApi=(  ) => {
 }
 
 export const getArticleByIdApi=( data ) => {
-  return axios.get("/admin/getArticleById/"+data )
+  return axios.get("/default/getArticleById/"+data )
 }
 export const getListByIdApi=( data ) => {
   return axios.get("/default/getListById/"+data )

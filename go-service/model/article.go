@@ -22,11 +22,12 @@ func QueryArticleList() (result map[string]interface{}) {
 
 	var resList []Article
 	var resType []string
-	var bibidaoList []string
-	var resTopList []string
+	var bibidaoList []Article
+	var resTopList []Article
 	db := GetDb()
 	db.Table("article").Where("is_top = ?", 0).Find(&resList)
-	db.Table("article").Where("is_top = ?", 1).Find(&resTopList)
+	db.Table("article").Find(&resTopList)
+	db.Table("article").Find(&bibidaoList)
 	articles := map[string]interface{}{
 		"list":        resList,
 		"type":        resType,
@@ -67,7 +68,7 @@ func GetAllPartCount() (flag map[string]interface{}) {
 	sql := "SELECT SUM(part_count) as all_part_count ,SUM(view_count) as all_view_count FROM article"
 	db := GetDb()
 	data := map[string]interface{}{
-		"all_part_count": "", "all_view_count": "",
+		"all_part_count": 456, "all_view_count": 123,
 	}
 	db.Exec(sql).Scan(&data)
 	return data

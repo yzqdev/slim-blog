@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { Row, Col, Tag, List, BackTop, Spin, Affix, Card } from "antd";
-import axios from "axios";
 import Header from "../components/Header";
 import Author from "../components/Author";
 import Advert from "../components/Advert";
@@ -13,7 +12,6 @@ import StudyLine from "../components/StudyLine";
 import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
-import servicePath from "../config/apiUrl";
 import CountUp from "react-countup";
 import {
   CalendarOutlined,
@@ -23,12 +21,21 @@ import {
 } from "@ant-design/icons";
 import { getArticleListApi } from "../config/admin";
 
-const Home = (res) => {
-  const [mylist, setMylist] = useState(res.list);
-  const [topList, setTopList] = useState(res.topList);
-  const [type, setType] = useState(res.type);
-  const [bibidaoList, setBibidaoList] = useState(res.bibidaoList);
+export default function Home({data})   {
+  const [mylist, setMylist] = useState(data.list);
+  const [topList, setTopList] = useState(data.topList);
+  const [type, setType] = useState(data.type);
+  const [bibidaoList, setBibidaoList] = useState(data.bibidaoList);
   const [loading, setLoading] = useState(false);
+
+  useEffect(async () => {
+    const data=await getArticleListApi()
+    console.log(data)
+    console.log(`%c进入useeffect`,`color:red;font-size:16px;background:transparent`)
+    setTopList(data.data.topList)
+    setMylist(data.data.list)
+    setBibidaoList(data.data.bibidaoList)
+  },[])
 
   const renderer = new marked.Renderer();
   marked.setOptions({
@@ -58,7 +65,7 @@ const Home = (res) => {
           name="description"
           content="首页 | 技术胖-胜洪宇关注web前端技术-前端免费视频第一博客"
         />
-        <link rel="icon" href="../static/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="../public/favicon.ico" type="image/x-icon" />
       </Head>
       <Affix offsetTop={0}>
         <Header />
@@ -75,7 +82,7 @@ const Home = (res) => {
                   <Spin spinning={loading}>
                     <div className="list-title" onClick={goLoading}>
                       <Link
-                        href={{ pathname: "/detailed", query: { id: item.id } }}
+                        href={{ pathname: "/detailed/"+item.id }}
                       >
                         <a>{item.title}</a>
                       </Link>
@@ -166,7 +173,7 @@ const Home = (res) => {
                   <Spin spinning={loading}>
                     <div className="list-title" onClick={goLoading}>
                       <Link
-                        href={{ pathname: "/detailed", query: { id: item.id } }}
+                        href={{ pathname: "/detailed/" +item.id}}
                       >
                         <a>{item.title}</a>
                       </Link>
@@ -174,11 +181,11 @@ const Home = (res) => {
                     <div className="list-icon">
                       <span>
                         <CalendarOutlined />
-                        {item.addTime}
+                        {item.add_time}
                       </span>
                       <span>
                         <FolderOutlined />
-                        {item.typeName}
+                        {item.type_name}
                       </span>
                       <span>
                         {" "}
@@ -196,8 +203,8 @@ const Home = (res) => {
                       <span onClick={goLoading}>
                         <Link
                           href={{
-                            pathname: "/detailed",
-                            query: { id: item.id },
+                            pathname: "/detailed/"+item.id,
+
                           }}
                         >
                           <a>查看全文 </a>
@@ -244,9 +251,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      res: data,
+        data,
     },
   };
 }
 
-export default Home;

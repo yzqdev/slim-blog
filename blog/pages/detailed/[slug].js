@@ -1,33 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { Row, Col, Breadcrumb, BackTop, Skeleton } from "antd";
-
-import Header from "../components/Header";
-import Author from "../components/Author";
-import Advert from "../components/Advert";
-import Footer from "../components/Footer";
-import Rightmi from "../components/Rightmi";
+import { useRouter } from "next/router";
+import Header from "../../components/Header";
+import Author from "../../components/Author";
+import Advert from "../../components/Advert";
+import Footer from "../../components/Footer";
+import Rightmi from "../../components/Rightmi";
 
 import "markdown-navbar/dist/navbar.css";
-import axios from "axios";
 import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
-import Tocify from "../components/tocify.tsx";
-import servicePath from "../config/apiUrl";
+import Tocify from "../../components/tocify.tsx";
 import {
   CalendarOutlined,
   FireOutlined,
   FolderOutlined,
 } from "@ant-design/icons";
+import { getArticleByIdApi } from "../../config/admin";
 
-const Detailed = (props) => {
-  let articleContent = props.article_content;
-  if (articleContent == "id错误") {
-    console.log("渲染完成，但什么都没有");
+export default function Detailed(props) {
+  let router = useRouter();
 
-    return false;
-  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,12 +30,32 @@ const Detailed = (props) => {
     }, 100);
   }, []);
 
-  const [html, setHtml] = useState(props.article_content_html);
+  const [html, setHtml] = useState(props.article_content );
   const [tocify, setTocify] = useState(new Tocify());
   const [loading, setLoading] = useState(true);
 
+  let id = router.query.slug;
+  console.log(id);
+  console.log(`%c得到id`, `color:red;font-size:16px;background:transparent`);
+  if (id) {
+    getArticleByIdApi(id).then((data) => {
+      if (data.data == "sss") {
+        return { article_content: "id ERROR" };
+      } else {
+        console.log(data);
+        console.log(
+          `%c到达html`,
+          `color:red;font-size:16px;background:transparent`
+        );
+        setHtml(data.data.article_content);
+        articleContent = data.data.article_content;
+      }
+    });
+  }
   const myFuction = async () => {
-    let newhtml = await marked(props.article_content);
+    console.log(html)
+    console.log(`%cmark进入`,`color:red;font-size:16px;background:transparent`)
+    let newhtml = await marked(html);
     //setHtml(newhtml)
     setLoading(false);
     //console.log(tocify.render())
@@ -73,12 +88,7 @@ const Detailed = (props) => {
       <Head>
         <title>技术胖-{props.title}</title>
         <meta name="description" content={props.title}></meta>
-        <link
-          rel="icon"
-          href="../static/favicon.ico"
-          mce_href="../static/favicon.ico"
-          type="image/x-icon"
-        />
+        <link rel="icon" href="../../public/favicon.ico" type="image/x-icon" />
       </Head>
       <Header />
       <Row className="comm-main" type="flex" justify="center">
@@ -141,43 +151,36 @@ const Detailed = (props) => {
     </>
   );
   //{tocify && tocify.render()}
-};
-
-Detailed.getInitialProps = async (context) => {
-  let date = new Date();
-
-  let month = date.getMonth();
-  let day = date.getDate();
-
-  let hour = date.getHours();
-  let minute = date.getMinutes();
-  let second = date.getSeconds();
-  let time = month + "/" + day + "/" + hour + ":" + minute + ":" + second;
-
-  console.log(
-    "----->" + time + ":Visit the details page,parameter=" + context.query.id
-  );
-  //把ID强制转换成数字
-
-  let id = parseInt(context.query.id);
-
-  const promise = new Promise((resolve) => {
-    if (id) {
-      axios(servicePath.getArticleById + id).then((res) => {
-        // console.log(title)
-        if (res.data.data == "id错误") {
-          console.log("ERROR.......");
-          resolve({ article_content: "id ERROR" });
-        } else {
-          resolve(res.data.data[0]);
-        }
-      });
-    } else {
-      console.log("error......");
-      resolve({ article_content: "Id Error" });
-    }
-  });
-  return await promise;
-};
-
-export default Detailed;
+}
+//
+// export async function getStaticProps(context) {
+//   let date = new Date();
+//   let month = date.getMonth();
+//   let day = date.getDate();
+//
+//   let hour = date.getHours();
+//   let minute = date.getMinutes();
+//   let second = date.getSeconds();
+//   let time = month + "/" + day + "/" + hour + ":" + minute + ":" + second;
+//
+//   // console.log(
+//   //   "----->" + time + ":Visit the details page,parameter=" + context.query.id
+//   // );
+//   //把ID强制转换成数字
+// console.log(context)
+//   console.log(`%c这是router`,`color:red;font-size:16px;background:transparent`)
+//   let id = parseInt(context.params.id);
+//   if (id) {
+//     const data = getArticleByIdApi(id);
+//     if (data.data == "sss") {
+//       return { article_content: "id ERROR" };
+//     } else {
+//       return { data: data.data };
+//     }
+//   }
+//   return{
+//   props:{
+//     data:"sdfdsfdsf"
+//   }
+//   }
+// }

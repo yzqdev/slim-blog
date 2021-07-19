@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Divider, Tooltip, Tag } from "antd";
-
-import servicePath from "../config/apiUrl";
-import axios from "axios";
 import CountUp from "react-countup";
 import {
-  CalendarOutlined,
   GithubOutlined,
   QqOutlined,
   WechatOutlined,
@@ -16,16 +12,18 @@ const Author = () => {
   const [all_part_count, setAll_part_count] = useState(0);
   const [all_view_count, setAll_view_count] = useState(0);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+
 
   const fetchData = async () => {
     const result = await getAllPartCountApi();
-    setAll_part_count(result.all_part_count);
-    setAll_view_count(result.all_view_count);
+    console.log(`%c进入auth`,`color:red;font-size:16px;background:transparent`)
+    console.log(result)
+    setAll_part_count(result.data.all_part_count);
+    setAll_view_count(result.data.all_view_count);
   };
-
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div className="author-div comm-box">
       <div>

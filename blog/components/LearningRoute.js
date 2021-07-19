@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Divider, Tooltip, Tag } from "antd";
 import "../public/style/components/author.css";
-import servicePath from "../config/apiUrl";
-import axios from "axios";
+
 import CountUp from "react-countup";
+import {getAllPartCountApi} from "../config/admin";
 
 const Author = () => {
   const [all_part_count, setAll_part_count] = useState(0);
@@ -14,11 +14,11 @@ const Author = () => {
   }, []);
 
   const fetchData = async () => {
-    const result = await axios(servicePath.getAllPartCount).then((res) => {
-      return res.data.data;
-    });
-    setAll_part_count(result[0].all_part_count);
-    setAll_view_count(result[0].all_view_count);
+    const result = await getAllPartCountApi();
+    console.log(`%c返回数据`,`color:red;font-size:16px;background:transparent`)
+    console.log(result)
+    setAll_part_count(result.all_part_count);
+    setAll_view_count(result.all_view_count);
   };
 
   return (
