@@ -29,12 +29,12 @@ export default function Home({data})   {
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
-    const data=await getArticleListApi()
-    console.log(data)
-    console.log(`%c进入useeffect`,`color:red;font-size:16px;background:transparent`)
-    setTopList(data.data.topList)
-    setMylist(data.data.list)
-    setBibidaoList(data.data.bibidaoList)
+
+    // console.log(data)
+    // console.log(`%c进入useeffect`,`color:red;font-size:16px;background:transparent`)
+    // setTopList(data.data.topList)
+    // setMylist(data.data.list)
+    // setBibidaoList(data.data.bibidaoList)
   },[])
 
   const renderer = new marked.Renderer();
@@ -112,8 +112,8 @@ export default function Home({data})   {
                       <span onClick={goLoading}>
                         <Link
                           href={{
-                            pathname: "/detailed",
-                            query: { id: item.id },
+                            pathname: "/detailed/"+item.id,
+
                           }}
                         >
                           <a>查看全文 </a>
@@ -248,10 +248,10 @@ export async function getStaticProps() {
   console.log("----->" + time + ":Visit the Index page");
 
   const data = await getArticleListApi();
-
+console.log(data)
   return {
     props: {
-        data,
+        data:data.data,
     },
   };
 }

@@ -152,8 +152,27 @@ export default function Detailed(props) {
   );
   //{tocify && tocify.render()}
 }
-//
-// export async function getStaticProps(context) {
+export async function getStaticPaths() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/users')
+  const users = await res.json()
+
+  const paths = users.map((user) => ({
+    params: { id: user.id.toString() },
+  }))
+
+  return { paths, fallback: false }
+}
+
+
+export async function getStaticProps(context) {
+
+  console.log(context)
+  return{
+    props:{
+      data:'aaa'
+    }
+  }
+}
 //   let date = new Date();
 //   let month = date.getMonth();
 //   let day = date.getDate();
