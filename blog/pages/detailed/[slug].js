@@ -23,38 +23,26 @@ import { getArticleByIdApi } from "../../config/admin";
 export default function Detailed(props) {
   let router = useRouter();
 
-
   useEffect(() => {
     setTimeout(() => {
       myFuction();
     }, 100);
   }, []);
 
-  const [html, setHtml] = useState(props.article_content );
+  const [html, setHtml] = useState(props.article_content);
   const [tocify, setTocify] = useState(new Tocify());
   const [loading, setLoading] = useState(true);
 
   let id = router.query.slug;
   console.log(id);
   console.log(`%c得到id`, `color:red;font-size:16px;background:transparent`);
-  if (id) {
-    getArticleByIdApi(id).then((data) => {
-      if (data.data == "sss") {
-        return { article_content: "id ERROR" };
-      } else {
-        console.log(data);
-        console.log(
-          `%c到达html`,
-          `color:red;font-size:16px;background:transparent`
-        );
-        setHtml(data.data.article_content);
 
-      }
-    });
-  }
   const myFuction = async () => {
-    console.log(html)
-    console.log(`%cmark进入`,`color:red;font-size:16px;background:transparent`)
+    console.log(html);
+    console.log(
+      `%cmark进入`,
+      `color:red;font-size:16px;background:transparent`
+    );
     let newhtml = await marked(html);
     //setHtml(newhtml)
     setLoading(false);
@@ -152,27 +140,25 @@ export default function Detailed(props) {
   );
   //{tocify && tocify.render()}
 }
-export async function getStaticPaths() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users')
-  const users = await res.json()
 
-  const paths = users.map((user) => ({
-    params: { id: user.id.toString() },
-  }))
-
-  return { paths, fallback: false }
-}
-
-
-export async function getStaticProps(context) {
-
-  console.log(context)
-  return{
-    props:{
-      data:'aaa'
-    }
+Detailed.getInitialProps = async (context) => {
+  let id = context.query.slug;
+  let article;
+  if (id) {
+    getArticleByIdApi(id).then((data) => {
+      if (data.data == "sss") {
+        return { article_content: "id ERROR" };
+      } else {
+        article = data.data;
+      }
+    });
   }
-}
+  return {
+    props: {
+      data: article,
+    },
+  };
+};
 //   let date = new Date();
 //   let month = date.getMonth();
 //   let day = date.getDate();
