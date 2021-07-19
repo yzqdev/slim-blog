@@ -10,15 +10,12 @@ class HeadingBlock extends PureComponent {
       const nodeValue = children[0].props.value;
       return (
         <>
-            <Heading level={`h${level}`} id={nodeValue}>
+          <Heading level={`h${level}`} id={nodeValue}>
             <a href={`#${nodeValue}`} className="link">
-                #
+              #
             </a>
             <span className="title">{children}</span>
-            
-            </Heading>
-           
-
+          </Heading>
         </>
       );
     } else {
@@ -26,13 +23,8 @@ class HeadingBlock extends PureComponent {
     }
   };
 
- 
-
   render() {
-    return (<>
-        {this.renderHtml()}
-       
-     </>);
+    return <>{this.renderHtml()}</>;
   }
 }
 

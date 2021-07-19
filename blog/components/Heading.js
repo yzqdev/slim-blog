@@ -6,7 +6,7 @@ const elements = {
   h3: "h3",
   h4: "h4",
   h5: "h5",
-  h6: "h6"
+  h6: "h6",
 };
 
 function Heading({ level, children, ...props }) {
@@ -14,7 +14,7 @@ function Heading({ level, children, ...props }) {
 }
 
 Heading.defaultProps = {
-  type: "h1"
+  type: "h1",
 };
 
 export default Heading;
