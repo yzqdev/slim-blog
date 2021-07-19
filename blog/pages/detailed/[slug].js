@@ -48,7 +48,7 @@ export default function Detailed(props) {
           `color:red;font-size:16px;background:transparent`
         );
         setHtml(data.data.article_content);
-        articleContent = data.data.article_content;
+
       }
     });
   }
