@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 	"github.com/gookit/color"
 	"net/http"
 	"react-blog/model"
