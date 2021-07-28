@@ -9,6 +9,7 @@ import "../public/style/pages/bibidao.css";
 
 import axios from "axios";
 import servicePath from "../config/apiUrl";
+import { getListBBDAPi } from "../config/admin";
 
 const Bibidao = (data) => {
   const [mylist, setList] = useState(data.list);
@@ -82,13 +83,12 @@ const Bibidao = (data) => {
 };
 
 Bibidao.getInitialProps = async (context) => {
-  const promise = new Promise((resolve) => {
-    axios(servicePath.getListBBD).then((res) => {
-      return resolve(res.data);
-    });
-  });
-
-  return await promise;
+  const bbd = await getListBBDAPi();
+  return {
+    props: {
+      data: bbd,
+    },
+  };
 };
 
 export default Bibidao;

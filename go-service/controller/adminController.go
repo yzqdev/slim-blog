@@ -95,7 +95,7 @@ func Login(c *gin.Context) {
 	}
 }
 
-// @Summary 注册api
+// Register @Summary 注册api
 // @Description 描述信息
 // @Tags accounts
 // @Accept  json
