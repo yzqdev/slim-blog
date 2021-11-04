@@ -11,7 +11,7 @@ import {addArticleApi, getArticleByIdApi, getTypeInfoApi, updateArticleApi} from
 const {Option} = Select;
 const {TextArea} = Input
 
-function AddArticle(props) {
+export default function AddArticle(props) {
 
     const [articleId, setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
     const [articleTitle, setArticleTitle] = useState('')   //文章标题
@@ -333,4 +333,4 @@ function AddArticle(props) {
     )
 }
 
-export default AddArticle
+
