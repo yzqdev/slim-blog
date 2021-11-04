@@ -9,7 +9,7 @@ import Footer from "../../components/Footer";
 import Rightmi from "../../components/Rightmi";
 
 import "markdown-navbar/dist/navbar.css";
-import marked from "marked";
+import {marked} from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
 import Tocify from "../../components/tocify.tsx";
@@ -43,7 +43,7 @@ export default function Detailed(props) {
       `%cmark进入`,
       `color:red;font-size:16px;background:transparent`
     );
-    let newhtml = await marked(html);
+    // let newhtml = await marked(html);
     //setHtml(newhtml)
     setLoading(false);
     //console.log(tocify.render())

@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import Rightmi from "../components/Rightmi";
 import StudyLine from "../components/StudyLine";
 
-import marked from "marked";
+import {marked} from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
 import CountUp from "react-countup";
