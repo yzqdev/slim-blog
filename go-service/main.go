@@ -10,14 +10,14 @@ import (
 func main() {
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
-		AllowAllOrigins:  true,
+		AllowOrigins:     []string{"http://127.0.0.1", "http://localhost"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: false,
-
-		MaxAge: 12 * time.Hour,
+		MaxAge:           12 * time.Hour,
 	}))
+
 	color.Red.Println("hhhhhhh")
 
 	InitRouter(r)
