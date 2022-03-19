@@ -14,4 +14,8 @@ class HomeController {
     fun index(): String {
         return "hello world"
     }
+    @GetMapping("/articles")
+    fun getArticles():String{
+        return "articles"
+    }
 }

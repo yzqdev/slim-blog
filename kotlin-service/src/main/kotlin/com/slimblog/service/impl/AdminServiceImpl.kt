@@ -1,5 +1,8 @@
 package com.slimblog.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.slimblog.mapper.AdminUserMapper
+import com.slimblog.model.entity.AdminUser
 import com.slimblog.service.AdminService
 import org.springframework.stereotype.Service
 
@@ -9,5 +12,7 @@ import org.springframework.stereotype.Service
  * @modified By:
  */
 @Service
-class AdminServiceImpl: AdminService() {
+class AdminServiceImpl : ServiceImpl<AdminUserMapper, AdminUser>(),AdminService {
+
+
 }

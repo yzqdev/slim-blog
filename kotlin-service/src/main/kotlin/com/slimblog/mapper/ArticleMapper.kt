@@ -2,6 +2,7 @@ package com.slimblog.mapper
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper
 import com.slimblog.model.entity.Article
+import org.apache.ibatis.annotations.Mapper
 
 /**
  * @author yanni
@@ -9,5 +10,6 @@ import com.slimblog.model.entity.Article
  * @modified By:
  *
  */
+@Mapper
 interface ArticleMapper:BaseMapper<Article> {
 }

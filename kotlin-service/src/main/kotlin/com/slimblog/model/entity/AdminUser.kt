@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableId
  */
 data class AdminUser(
     @TableId("id",type=IdType.AUTO)
-    var id: String,
+    var id: Int,
     var username: String,
     var password: String,
     var nickname: String,

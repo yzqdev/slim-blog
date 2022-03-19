@@ -1,5 +1,9 @@
 package com.slimblog.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.slimblog.mapper.ArticleMapper
+import com.slimblog.model.entity.Article
+import com.slimblog.service.HomeService
 import org.springframework.stereotype.Service
 
 /**
@@ -8,5 +12,5 @@ import org.springframework.stereotype.Service
  * @modified By:
  */
 @Service
-class HomeServiceImpl {
+class HomeServiceImpl: ServiceImpl<ArticleMapper, Article>(), HomeService {
 }
