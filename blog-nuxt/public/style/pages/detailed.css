@@ -1,0 +1,125 @@
+.bread-div{
+    padding: .6rem;
+    border-bottom:1px solid #DDD;
+    background-color: #FFF;
+    
+}
+.detailed-title{
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1rem;
+}
+.center{
+    text-align: center;
+}
+.detailed-content{
+    padding: 1.3rem;
+    font-size: 1.05rem;
+    color: #777;
+    line-height: 1.9rem;
+}
+.detailed-content h2{
+    border-bottom: 1px solid #d9dada;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    -webkit-margin-bottom-collapse: 2rem;
+    color: #333 ;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.detailed-content h3{
+    border-left: 4px solid rgb(156, 203, 250);
+    padding-left:1rem ;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    -webkit-margin-bottom-collapse: 2rem;
+    color: #666 ;
+    font-size: 1.3rem;
+    font-weight: bold;
+    
+}
+.detailed-content img{
+    border-radius: 5px;
+    border:1px solid #f0f0f0;
+}
+pre{
+    display: block;
+    background-color: #283646 !important;
+     padding: .5rem !important;
+     overflow-y: auto;
+     font-weight: 300;
+     font-family: Menlo, monospace;
+     border-radius: .3rem;
+}
+
+pre > code{
+    border:0px !important;
+    background-color: #283646 !important;
+    color:#ccc !important;
+    font-size: .87rem;
+
+}
+code {
+    display: inline-block ;
+    background-color:#fff5f5;
+    border-radius:3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color:#ff502c;
+    margin: 0px 3px;
+    line-height: 1.1rem;
+    font-size: .87rem;
+
+}
+
+.title-anchor{
+    color:#888 !important;
+    padding:4px !important;
+    margin: 0rem !important;
+    height: auto !important;
+    line-height: 1.2rem !important;
+    font-size: .7rem !important;
+    border-bottom: 1px dashed #eee;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.active{
+    color:rgb(30, 144, 255) !important;
+}
+.nav-title{
+    text-align: center;
+    color: #888;
+    border-bottom: 1px solid rgb(30, 144, 255);
+    font-size: 1rem;
+   
+}
+.article-menu{
+    font-size:12px;
+}
+iframe{
+    height: 34rem;
+    border:1px solid #ccc;
+    border-radius: 8px;
+}
+@media screen and (min-width: 320px)and (max-width: 750px){
+    iframe{
+        height: 12rem;
+    }
+}
+
+.detailed-content  img{
+    width: 100%;
+    border:1px solid #f3f3f3;
+}
+.title-level3{
+    display: none !important;
+}
+.ant-anchor-link-title{
+    font-size: 12px !important;
+}
+.ant-anchor-wrapper{
+    padding: 5px !important;
+}
+

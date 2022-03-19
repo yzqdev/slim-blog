@@ -1,0 +1,32 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": " yarn&& next -p 4000",
+    "build": "next build",
+    "start": "set NODE_ENV=production next start -p 3000 ",
+    "export": "npm run build && next export"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.17.1",
+    "axios": "^0.24.0",
+    "babel-plugin-import": "^1.13.3",
+    "highlight.js": "^11.3.1",
+    "loadash": "^1.0.0",
+    "markdown-navbar": "^1.4.3",
+    "marked": "^4.0.4",
+    "next": "12.0.4",
+    "prettier": "^2.4.1",
+    "react": "17.0.2",
+    "react-countup": "^6.1.0",
+    "react-dom": "17.0.2",
+    "react-highlight": "^0.14.0",
+    "react-markdown": "^7.1.0",
+    "react-syntax-highlighter": "^15.4.5"
+  },
+  "devDependencies": {
+    "raw-loader": "^4.0.2"
+  }
+}

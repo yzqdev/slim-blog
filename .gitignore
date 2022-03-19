@@ -1,0 +1,13 @@
+/service/node_modules
+/service/logs
+/service/run
+/service/package-lock.json
+/service/yarn.lock
+/blog/node_modules
+/blog/out
+/blog/.next
+/blog/package-lock.json
+/blog/yarn.lock
+/admin_app/node_modules
+/admin_app/yarn.lock
+.idea
