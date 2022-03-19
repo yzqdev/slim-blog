@@ -1,5 +1,7 @@
 package com.slimblog.controller
 
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -10,4 +12,12 @@ import org.springframework.web.bind.annotation.RestController
  */
 @RestController
 class ArticleController {
+    @PostMapping("/addArticle")
+    fun  addArticle():String{
+        return "add article"
+    }
+    @PutMapping("/updateArticle")
+    fun updateArticle():String{
+        return "update article"
+    }
 }
