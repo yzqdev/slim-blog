@@ -1,13 +1,75 @@
-/service/node_modules
-/service/logs
-/service/run
-/service/package-lock.json
-/service/yarn.lock
-/blog/node_modules
-/blog/out
-/blog/.next
-/blog/package-lock.json
-/blog/yarn.lock
-/admin_app/node_modules
-/admin_app/yarn.lock
+build/
+out/
+log/
+logs/
+
+target/
+node_modules/
+classes/
+.deploy*/
+.gradle
+*.log.*
+*.log
+.DS_Store
+Thumbs.db
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
 .idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+yarn.lock
+.cache
+.temp
+
+## java
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
