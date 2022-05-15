@@ -1,5 +1,8 @@
 mysql:
   host: 127.0.0.1:3306
-  name: react_blog
+  name: slim_blog
   user: root
+  pass: 123456
+pgsql:
+  name: slim_blog
   pass: 123456

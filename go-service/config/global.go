@@ -12,11 +12,15 @@ import (
 
 type Global struct {
 	Mysql struct {
-		Host string `json:"host"`
-		Port string `json:"port"`
-		User string `json:"user"`
-		Pass string `json:"pass"`
-		Name string `json:"name"`
+		Host string `mapstructrue:"host"`
+		Port string `mapstructrue:"port"`
+		User string `mapstructrue:"user"`
+		Pass string `mapstructrue:"pass"`
+		Name string `mapstructrue:"name"`
+	}
+	Pgsql struct {
+		Pass string `mapstructrue:"pass"`
+		Name string `mapstructrue:"name"`
 	}
 }
 

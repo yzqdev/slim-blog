@@ -1,7 +1,7 @@
 package model
 
 type ArticleType struct {
-	Id       int    `json:"id"`
+	BaseModel
 	TypeName string `json:"type_name"`
 	OrderNum int    `json:"order_num"`
 	Icon     string `json:"icon"`

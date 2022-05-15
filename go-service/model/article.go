@@ -5,7 +5,7 @@ import (
 )
 
 type Article struct {
-	Id                 int    `json:"id"`
+	BaseModel
 	TypeId             int    `json:"type_id"`
 	Title              string `json:"title"`
 	ArticleContent     string `json:"article_content"`
@@ -47,20 +47,20 @@ func QueryUpdateArticle(article Article) (flag bool) {
 	db := GetDb()
 
 	color.Red.Println(article)
-	db.Table("article").Save(&article)
+	db.Save(&article)
 
 	return true
 }
 func DeleteArticle(id int) (flag bool) {
 	db := GetDb()
 	var article Article
-	db.Table("article").Where("id= ?", id).Delete(&article)
+	db.Where("id= ?", id).Delete(&article)
 	return true
 }
 func QueryGetArticleById(id int) (result Article) {
 	db := GetDb()
 
-	db.Table("article").Where("id=?", id).First(&result)
+	db.Where("id=?", id).First(&result)
 	color.Blueln(result)
 	return
 }
